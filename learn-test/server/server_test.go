@@ -8,6 +8,7 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/ghttp"
 
 	"learntest/server"
 )
@@ -15,9 +16,19 @@ import (
 var _ = Describe("Server", func() {
 
 	var (
+		serv *ghttp.Server
 		body string
 		addr string
 	)
+
+	BeforeEach(func() {
+		// start a test http server
+		serv = ghttp.NewServer()
+	})
+
+	AfterEach(func() {
+		serv.Close()
+	})
 
 	Context("with no number passed", func() {
 		BeforeEach(func() {
@@ -87,6 +98,30 @@ var _ = Describe("Server", func() {
 			Expect(err).ShouldNot(HaveOccurred())
 
 			Expect(res.StatusCode).Should(Equal(http.StatusBadRequest))
+			Expect(strings.TrimSpace(string(b))).To(Equal(body))
+		})
+	})
+
+	Context("when request passed with value 0", func() {
+		BeforeEach(func() {
+			serv.AppendHandlers(
+				server.DoubleHandler,
+			)
+
+			body = "0"
+		})
+
+		It("should return value 0", func() {
+			resp, err := http.Get(serv.URL() + "/double?val=0")
+			print(err)
+			Expect(err).To(BeNil())
+
+			defer resp.Body.Close()
+
+			b, err := ioutil.ReadAll(resp.Body)
+			Expect(err).To(BeNil())
+
+			Expect(resp.StatusCode).Should(Equal(http.StatusOK))
 			Expect(strings.TrimSpace(string(b))).To(Equal(body))
 		})
 	})
