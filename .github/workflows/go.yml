@@ -21,11 +21,8 @@ jobs:
       with:
         go-version: 1.18
 
-    - name: Move to Go app folder
-      run: cd learn-test && ls
-
     - name: Run the server
-      run: go run ./learn-test/main.go
+      run: go build ./learn-test/main.go
 
     - name: Test
       run: go test -v ./learn-test/...
