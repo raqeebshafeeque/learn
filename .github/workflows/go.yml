@@ -33,6 +33,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+
+    - name: Build
+      run: | 
+        cd learn-test
+        go mod tidy
+
     - name: Test
       run: |
         cd learn-test
