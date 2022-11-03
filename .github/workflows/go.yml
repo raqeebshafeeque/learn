@@ -22,7 +22,7 @@ jobs:
         go-version: 1.18
 
     - name: Run the server
-      run: cd learn-test && go mod init
+      run: cd learn-test && go mod tidy
 
     - name: Test
       run: go test -v ./learn-test/...
