@@ -22,7 +22,9 @@ jobs:
         go-version: 1.18
 
     - name: Build
+      run: cd learn-test
       run: go build -v ./...
 
     - name: Test
+      run: cd learn-test
       run: go test -v ./...
