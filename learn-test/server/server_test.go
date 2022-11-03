@@ -1,7 +1,7 @@
 package server_test
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -46,7 +46,7 @@ var _ = Describe("Server", func() {
 			res := rec.Result()
 			defer res.Body.Close()
 
-			b, err := ioutil.ReadAll(res.Body)
+			b, err := io.ReadAll(res.Body)
 			Expect(err).ShouldNot(HaveOccurred())
 
 			Expect(res.StatusCode).Should(Equal(http.StatusBadRequest))
@@ -70,7 +70,7 @@ var _ = Describe("Server", func() {
 			res := rec.Result()
 			defer res.Body.Close()
 
-			b, err := ioutil.ReadAll(res.Body)
+			b, err := io.ReadAll(res.Body)
 			Expect(err).ShouldNot(HaveOccurred())
 
 			Expect(res.StatusCode).Should(Equal(http.StatusOK))
@@ -94,7 +94,7 @@ var _ = Describe("Server", func() {
 			res := rec.Result()
 			defer res.Body.Close()
 
-			b, err := ioutil.ReadAll(res.Body)
+			b, err := io.ReadAll(res.Body)
 			Expect(err).ShouldNot(HaveOccurred())
 
 			Expect(res.StatusCode).Should(Equal(http.StatusBadRequest))
@@ -118,7 +118,7 @@ var _ = Describe("Server", func() {
 
 			defer resp.Body.Close()
 
-			b, err := ioutil.ReadAll(resp.Body)
+			b, err := io.ReadAll(resp.Body)
 			Expect(err).To(BeNil())
 
 			Expect(resp.StatusCode).Should(Equal(http.StatusOK))
