@@ -17,4 +17,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println("The server is listening on port 8080")
 }
