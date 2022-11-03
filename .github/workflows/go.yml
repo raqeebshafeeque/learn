@@ -26,7 +26,11 @@ jobs:
         cd learn-test
         go mod tidy
         go build ./...
-
+        echo "Build completed successfully..."
+  test:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
     - name: Test
       run: |
         cd learn-test
