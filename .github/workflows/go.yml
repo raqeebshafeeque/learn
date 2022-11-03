@@ -24,6 +24,10 @@ jobs:
     - name: Move to Go app folder
       run: cd learn-test && ls
 
+
+    - name: Show folder contents
+      run: ls
+        
     - name: Run the server
       run: go run main.go
 
